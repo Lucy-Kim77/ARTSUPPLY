@@ -1,4 +1,4 @@
-// assets/js/artists.js
+// assets/js/artist-directory.js
 import {
   db,
   collection,
@@ -17,17 +17,13 @@ const artistCountEl = document.getElementById("artist-count");
 
 let allArtists = [];
 
-/**
- * Render the current list of artists into the grid.
- * Applies client-side search filter based on searchInput.
- */
+// Render artists into the grid, with search filter
 function renderArtists() {
   if (!grid) return;
 
   const term = (searchInput?.value || "").trim().toLowerCase();
   grid.innerHTML = "";
 
-  // Sort by displayName client-side to avoid composite index issues
   const sorted = [...allArtists].sort((a, b) =>
     (a.displayName || "").localeCompare(b.displayName || "")
   );
@@ -38,7 +34,6 @@ function renderArtists() {
     return name.includes(term);
   });
 
-  // Update count
   if (artistCountEl) {
     artistCountEl.textContent =
       filtered.length === 1
@@ -93,12 +88,10 @@ function renderArtists() {
 async function loadArtists() {
   try {
     const usersRef = collection(db, "users");
-
-    // Simple query: all docs where isArtist == true
     const q = query(usersRef, where("isArtist", "==", true));
     const snap = await getDocs(q);
 
-    console.log("[artists] found", snap.size, "artist docs with isArtist == true");
+    console.log("[artist-directory] found", snap.size, "artist docs with isArtist == true");
 
     allArtists = [];
     snap.forEach((docSnap) => {
@@ -121,7 +114,7 @@ async function loadArtists() {
 
     renderArtists();
   } catch (err) {
-    console.error("[artists] failed to load artists:", err);
+    console.error("[artist-directory] failed to load artists:", err);
     loadingSection.style.display = "none";
     errorSection.style.display = "block";
     errorMessage.textContent =
@@ -129,12 +122,10 @@ async function loadArtists() {
   }
 }
 
-// Search input handler
 if (searchInput) {
   searchInput.addEventListener("input", () => {
     renderArtists();
   });
 }
 
-// Initial load
 loadArtists();
