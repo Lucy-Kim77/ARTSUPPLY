@@ -64,3 +64,47 @@ button {
 .success {
   color: #6ee7b7;
 }
+
+.artist-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.artist-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--brand, #333);
+  color: white;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.artist-follow-info {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#follow-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: var(--brand, #444);
+  color: white;
+  transition: 0.2s;
+}
+
+#follow-btn.following {
+  background: #1db954;
+}
+
+.embed-item {
+  margin-bottom: 20px;
+}
+

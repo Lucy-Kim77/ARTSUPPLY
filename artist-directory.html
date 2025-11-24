@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Artist Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="artist-directory.html">Artists</a>
+    <a href="account.html">Account</a>
+
+    <a href="artist-dashboard.html"
+       data-auth="artist-link"
+       style="display:none;">
+      Artist Dashboard
+    </a>
+
+    <div class="nav-right">
+      <button data-auth="login" onclick="window.location.href='login.html'">Log In</button>
+      <button data-auth="signup" onclick="window.location.href='signup.html'">Sign Up</button>
+
+      <div data-auth="user-menu" style="display:none;">
+        <span data-auth="user-email"></span>
+        <a href="account.html">Profile</a>
+        <a href="#" data-auth="logout">Log out</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <section class="card">
+    <h1>Browse Artists</h1>
+    <p class="muted">Discover artists and explore their releases.</p>
+
+    <div class="artist-search-row">
+      <input id="artist-search" type="text" placeholder="Search artists..." />
+      <span id="artist-count" class="muted"></span>
+    </div>
+  </section>
+
+  <section id="artists-loading" class="card">
+    <p>Loading artists…</p>
+  </section>
+
+  <section id="artists-error" class="card" style="display:none;">
+    <p id="artists-error-message">No artists found.</p>
+  </section>
+
+  <section id="artists-grid-section" class="card" style="display:none;">
+    <div id="artists-grid" class="artists-grid"></div>
+  </section>
+
+</main>
+
+<script type="module" src="assets/js/firebase-config.js"></script>
+<script type="module" src="assets/js/auth.js"></script>
+<script type="module" src="assets/js/artist-directory.js"></script>
+<script type="module">
+  import { initAuthHeader } from "./assets/js/auth.js";
+  initAuthHeader();
+</script>
+
+</body>
+</html>

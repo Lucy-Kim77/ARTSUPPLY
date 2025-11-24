@@ -1,6 +1,4 @@
 // assets/js/firebase-config.js
-// Initialize Firebase app, Auth & Firestore (v9 modular)
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import {
   getAuth,
@@ -12,9 +10,14 @@ import {
   doc,
   getDoc,
   setDoc,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  where,
 } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-// TODO: replace with your real config from Firebase console
 const firebaseConfig = {
   apiKey: "AIzaSyArpnMN7nmuYe_U7X0k8sga2JflaBOTeGw",
   authDomain: "artsupply-fa963.firebaseapp.com",
@@ -37,7 +40,14 @@ export {
   doc,
   getDoc,
   setDoc,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  where,
 };
+
 
 
 /*// Import the functions you need from the SDKs you need

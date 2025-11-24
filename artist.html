@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Artist Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="artist-directory.html">Artists</a>
+    <a href="account.html">Account</a>
+
+    <a href="artist-dashboard.html"
+       data-auth="artist-link"
+       style="display:none;">
+      Artist Dashboard
+    </a>
+
+    <div class="nav-right">
+      <button data-auth="login" onclick="window.location.href='login.html'">Log In</button>
+      <button data-auth="signup" onclick="window.location.href='signup.html'">Sign Up</button>
+      <div data-auth="user-menu" style="display:none;">
+        <span data-auth="user-email"></span>
+        <a href="account.html">Profile</a>
+        <a href="#" data-auth="logout">Log out</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <section id="artist-loading" class="card">
+    <p>Loading artist…</p>
+  </section>
+
+  <section id="artist-not-found" class="card" style="display:none;">
+    <h2>Artist Not Found</h2>
+    <p>This artist does not exist.</p>
+  </section>
+
+  <section id="artist-profile" style="display:none;">
+
+    <section class="artist-hero card">
+      <div id="artist-avatar" class="artist-avatar"></div>
+
+      <div>
+        <h1 id="artist-name">Artist</h1>
+        <div class="artist-follow-info">
+          <span id="artist-followers">0 followers</span>
+          <button id="follow-btn">Follow</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Releases</h2>
+      <div id="artist-releases"></div>
+    </section>
+
+    <section class="card">
+      <h2>About</h2>
+      <p id="artist-about">No bio available.</p>
+    </section>
+
+  </section>
+
+</main>
+
+<script type="module" src="assets/js/firebase-config.js"></script>
+<script type="module" src="assets/js/auth.js"></script>
+<script type="module" src="assets/js/artist.js"></script>
+<script type="module">
+  import { initAuthHeader } from "./assets/js/auth.js";
+  initAuthHeader();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Artist Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- Shared header -->
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="account.html">Account</a>
+      <a href="artist-dashboard.html">Artist Dashboard</a>
+
+      <div class="nav-right">
+        <button data-auth="login" onclick="window.location.href='login.html'">Log In</button>
+        <button data-auth="signup" onclick="window.location.href='signup.html'">Sign Up</button>
+        <div data-auth="user-menu" style="display:none;">
+          <span data-auth="user-email"></span>
+          <a href="account.html">Profile</a>
+          <a href="#" data-auth="logout">Log out</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page">
+    <h1>Artist Dashboard</h1>
+
+    <!-- Shown while we figure out who you are -->
+    <section id="artist-loading">
+      <p>Loading your artist dashboard…</p>
+    </section>
+
+    <!-- Shown if user is not logged in or not an artist -->
+    <section id="artist-denied" style="display:none;">
+      <h2>Access restricted</h2>
+      <p id="artist-denied-message">
+        You must be logged in as an artist to view this page.
+      </p>
+      <button onclick="window.location.href='login.html'">Go to Log In</button>
+    </section>
+
+    <!-- Main dashboard (only artists see this) -->
+    <section id="artist-dashboard" style="display:none;">
+
+      <!-- Top summary -->
+      <section class="card">
+        <h2>Welcome, <span id="artist-name">Artist</span></h2>
+        <p>
+          <strong>Account email:</strong>
+          <span id="artist-email"></span>
+        </p>
+        <p>
+          You’re signed in as an <strong>Artist</strong>. You still keep all fan
+          abilities (following, liking, etc.) but get these extra tools.
+        </p>
+      </section>
+
+      <!-- Quick stats (placeholders for now) -->
+      <section class="card">
+        <h2>Quick stats</h2>
+        <div class="stat-grid">
+          <div class="stat">
+            <span class="stat-label">Releases</span>
+            <span class="stat-value" id="stat-releases">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Total plays</span>
+            <span class="stat-value" id="stat-plays">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Followers</span>
+            <span class="stat-value" id="stat-followers">0</span>
+          </div>
+        </div>
+        <p class="muted">
+          These are placeholders for now – you can wire real analytics later.
+        </p>
+      </section>
+
+      <!-- Releases / embeds -->
+      <section class="card">
+        <h2>Your releases</h2>
+        <p class="muted">
+          Here you can showcase links or embeds from Spotify / Apple Music / etc.
+          This version doesn’t save to the database yet – it’s just to get the UX
+          in place. We can hook it into Firestore next.
+        </p>
+
+        <form id="add-embed-form">
+          <label>
+            Release title
+            <input type="text" id="embed-title" placeholder="e.g. My First Single" required />
+          </label>
+
+          <label>
+            Embed code or share URL
+            <textarea
+              id="embed-code"
+              rows="4"
+              placeholder="Paste a Spotify or Apple Music embed code, or share URL"
+              required
+            ></textarea>
+          </label>
+
+          <button type="submit">Add to dashboard (local only)</button>
+          <p id="embed-error" class="error"></p>
+        </form>
+
+        <div id="embed-list" class="embed-list">
+          <!-- New embeds will appear here -->
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script type="module" src="./assets/js/firebase-config.js"></script>
+  <script type="module" src="./assets/js/auth.js"></script>
+  <script type="module" src="./assets/js/artist-dashboard.js"></script>
+  <script type="module">
+    import { initAuthHeader } from "./assets/js/auth.js";
+    initAuthHeader();
+  </script>
+</body>
+</html>
