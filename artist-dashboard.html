@@ -7,12 +7,17 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <!-- Shared header -->
   <header class="site-header">
     <nav class="nav">
       <a href="index.html">Home</a>
+      <a href="artist-directory.html">Artists</a>
       <a href="account.html">Account</a>
-      <a href="artist-dashboard.html">Artist Dashboard</a>
+
+      <a href="artist-dashboard.html"
+         data-auth="artist-link"
+         style="display:none;">
+        Artist Dashboard
+      </a>
 
       <div class="nav-right">
         <button data-auth="login" onclick="window.location.href='login.html'">Log In</button>
@@ -29,13 +34,11 @@
   <main class="page">
     <h1>Artist Dashboard</h1>
 
-    <!-- Shown while we figure out who you are -->
-    <section id="artist-loading">
+    <section id="artist-loading" class="card">
       <p>Loading your artist dashboard…</p>
     </section>
 
-    <!-- Shown if user is not logged in or not an artist -->
-    <section id="artist-denied" style="display:none;">
+    <section id="artist-denied" class="card" style="display:none;">
       <h2>Access restricted</h2>
       <p id="artist-denied-message">
         You must be logged in as an artist to view this page.
@@ -43,7 +46,6 @@
       <button onclick="window.location.href='login.html'">Go to Log In</button>
     </section>
 
-    <!-- Main dashboard (only artists see this) -->
     <section id="artist-dashboard" style="display:none;">
 
       <!-- Top summary -->
@@ -53,13 +55,13 @@
           <strong>Account email:</strong>
           <span id="artist-email"></span>
         </p>
-        <p>
-          You’re signed in as an <strong>Artist</strong>. You still keep all fan
-          abilities (following, liking, etc.) but get these extra tools.
+        <p class="muted">
+          You’re signed in as an <strong>Artist</strong>. You can upload audio and cover art
+          here and your fans will see your releases on your public artist page.
         </p>
       </section>
 
-      <!-- Quick stats (placeholders for now) -->
+      <!-- Quick stats (placeholder for now) -->
       <section class="card">
         <h2>Quick stats</h2>
         <div class="stat-grid">
@@ -77,17 +79,16 @@
           </div>
         </div>
         <p class="muted">
-          These are placeholders for now – you can wire real analytics later.
+          Stats are placeholders for now – you can wire real analytics later.
         </p>
       </section>
 
-      <!-- Releases / embeds -->
+      <!-- Releases / uploads -->
       <section class="card">
         <h2>Your releases</h2>
         <p class="muted">
-          Here you can showcase links or embeds from Spotify / Apple Music / etc.
-          This version doesn’t save to the database yet – it’s just to get the UX
-          in place. We can hook it into Firestore next.
+          Upload audio files and optional cover art. You can also paste an external embed
+          (Spotify, Apple Music, SoundCloud, etc.) if you want to link out.
         </p>
 
         <form id="add-embed-form">
@@ -97,31 +98,40 @@
           </label>
 
           <label>
-            Embed code or share URL
+            External embed code or URL (optional)
             <textarea
               id="embed-code"
-              rows="4"
-              placeholder="Paste a Spotify or Apple Music embed code, or share URL"
-              required
+              rows="3"
+              placeholder="Paste a Spotify/Apple/SoundCloud iframe or share URL (optional)"
             ></textarea>
           </label>
 
-          <button type="submit">Add to dashboard (local only)</button>
+          <label>
+            Audio file (optional)
+            <input type="file" id="audio-file" accept="audio/*" />
+          </label>
+
+          <label>
+            Cover image (optional)
+            <input type="file" id="image-file" accept="image/*" />
+          </label>
+
+          <button type="submit" id="embed-submit-btn">Save release</button>
+          <p id="embed-status" class="muted"></p>
           <p id="embed-error" class="error"></p>
         </form>
 
         <div id="embed-list" class="embed-list">
-          <!-- New embeds will appear here -->
+          <!-- Existing releases render here -->
         </div>
       </section>
 
     </section>
   </main>
 
-  <!-- Scripts -->
-  <script type="module" src="./assets/js/firebase-config.js"></script>
-  <script type="module" src="./assets/js/auth.js"></script>
-  <script type="module" src="./assets/js/artist-dashboard.js"></script>
+  <script type="module" src="assets/js/firebase-config.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/artist-dashboard.js"></script>
   <script type="module">
     import { initAuthHeader } from "./assets/js/auth.js";
     initAuthHeader();

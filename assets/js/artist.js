@@ -23,7 +23,6 @@ const aboutEl = document.getElementById("artist-about");
 const releasesEl = document.getElementById("artist-releases");
 const followBtn = document.getElementById("follow-btn");
 
-// --------- helpers for show/hide states ---------
 function showLoading() {
   loadingSection.style.display = "block";
   notFoundSection.style.display = "none";
@@ -43,7 +42,6 @@ function showProfile() {
   profileSection.style.display = "block";
 }
 
-// --------- read artist uid from URL ---------
 const params = new URLSearchParams(window.location.search);
 const artistUid = params.get("uid");
 
@@ -52,7 +50,7 @@ if (!artistUid) {
   throw new Error("[artist] missing uid query parameter");
 }
 
-// --------- render one release embed ---------
+// render a single release
 function renderRelease(data) {
   const item = document.createElement("div");
   item.className = "embed-item";
@@ -61,24 +59,49 @@ function renderRelease(data) {
   title.textContent = data.title || "Untitled release";
   item.appendChild(title);
 
+  // optional cover image
+  if (data.imageUrl) {
+    const img = document.createElement("img");
+    img.src = data.imageUrl;
+    img.alt = `${data.title || "Cover"} artwork`;
+    img.style.maxWidth = "180px";
+    img.style.borderRadius = "12px";
+    img.style.display = "block";
+    img.style.marginBottom = "8px";
+    item.appendChild(img);
+  }
+
   const raw = data.raw || "";
-  if (raw.startsWith("<iframe")) {
+  const audioUrl = data.audioUrl || "";
+
+  if (raw && raw.startsWith("<iframe")) {
     const container = document.createElement("div");
     container.innerHTML = raw;
     item.appendChild(container);
+  } else if (audioUrl) {
+    const audio = document.createElement("audio");
+    audio.controls = true;
+    audio.src = audioUrl;
+    audio.style.width = "100%";
+    item.appendChild(audio);
   } else if (raw) {
     const link = document.createElement("a");
     link.href = raw;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.textContent = "Open on streaming service";
+    link.textContent = "Open externally";
     item.appendChild(link);
+  } else {
+    const p = document.createElement("p");
+    p.className = "muted";
+    p.textContent = "No playback source attached.";
+    item.appendChild(p);
   }
 
   releasesEl.appendChild(item);
 }
 
-// --------- load releases from subcollection ---------
+// load releases from Firestore
 async function loadReleases() {
   releasesEl.innerHTML = "";
   const embedsRef = collection(db, "users", artistUid, "embeds");
@@ -99,7 +122,7 @@ async function loadReleases() {
 
 let currentFollowers = 0;
 
-// --------- main load: artist profile ---------
+// load artist profile
 async function loadArtistProfile() {
   showLoading();
   try {
@@ -107,14 +130,12 @@ async function loadArtistProfile() {
     const snap = await getDoc(ref);
 
     if (!snap.exists()) {
-      console.warn("[artist] no user doc for uid:", artistUid);
       showNotFound("This artist profile does not exist.");
       return;
     }
 
     const data = snap.data();
     if (!data.isArtist) {
-      console.warn("[artist] user is not marked as artist:", artistUid);
       showNotFound("This user is not an artist.");
       return;
     }
@@ -146,7 +167,7 @@ async function loadArtistProfile() {
 
 loadArtistProfile();
 
-// --------- follow / unfollow logic ---------
+// follow / unfollow logic
 async function isFollowing(fanUid) {
   const ref = doc(db, "users", fanUid, "follows", artistUid);
   const snap = await getDoc(ref);
@@ -180,7 +201,6 @@ async function unfollow(fanUid) {
   await setFollowersCount(Math.max(0, (currentFollowers || 1) - 1));
 }
 
-// wire follow button based on auth state
 onAuthStateChanged(auth, async (user) => {
   if (!followBtn) return;
 
