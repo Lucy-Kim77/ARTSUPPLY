@@ -1,43 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Log In</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Log In</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- 3D-style video background (woman singing) -->
+    <div class="bg-video-wrap">
+      <video
+        class="bg-video"
+        src="assets/video/woman-singing.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+      <div class="bg-video-overlay"></div>
+    </div>
 
-<script type="module" src="/assets/js/firebase-config.js"></script>
-<script type="module" src="/assets/js/auth.js"></script>
+    <!-- Three.js canvas overlay -->
+    <canvas id="webgl-bg"></canvas>
 
-<header class="site-header">
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="account.html">Account</a>
-     <a href="artist-dashboard.html"
-     data-auth="artist-link"
-     style="display:none;">
-     Artist Dashboard
-  </a>
+    <!-- Header / Nav -->
+    <header class="site-header">
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="account.html">Account</a>
+        <!-- keep artist dashboard link if your project uses it -->
+        <a
+          href="artist-dashboard.html"
+          data-auth="artist-link"
+          style="display: none"
+        >
+          Artist Dashboard
+        </a>
 
-    <div class="nav-right">
-      <button data-auth="login" onclick="window.location.href='login.html'">
-        Log In
+        <div class="nav-right">
+          <button data-auth="login" onclick="window.location.href='login.html'">
+            Log In
+          </button>
+          <button
+            data-auth="signup"
+            onclick="window.location.href='signup.html'"
+          >
+            Sign Up
+          </button>
+
+          <!-- User menu (hidden until logged in) -->
+          <div data-auth="user-menu" style="display: none">
+            <span data-auth="user-email"></span>
+            <a href="account.html">Profile</a>
+            <a href="#" data-auth="logout">Log out</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Left Hamburger Navigation (add-on) -->
+    <div class="side-menu">
+      <button class="hamburger" aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-      <button data-auth="signup" onclick="window.location.href='signup.html'">
-        Sign Up
-      </button>
 
-      <!-- User menu (hidden until logged in) -->
-      <div data-auth="user-menu" style="display:none;">
-        <span data-auth="user-email"></span>
-        <a href="account.html">Profile</a>
-        <a href="#" data-auth="logout">Log out</a>
+      <div class="side-menu-panel">
+        <h2 class="side-menu-title">Explore</h2>
+        <a href="about.html">About Us</a>
+        <a href="music.html">Music</a>
+        <a href="tickets.html">Tickets</a>
+        <a href="merch.html">Merch</a>
       </div>
     </div>
-  </nav>
-</header>
-<script type="module">
-  import { initAuthHeader } from "./assets/js/auth.js";
-  initAuthHeader();
-</script>
+    <!-- Landing hero headline -->
+    <section class="landing-hero">
+      <div class="landing-inner">
+        <h1 class="landing-headline">
+          <span>WHERE</span>
+          <span>MUSIC, CONCERTS</span>
+          <span>AND MERCH</span>
+          <span>COME TO LIFE</span>
+        </h1>
 
+        <p class="landing-subtitle">WELCOME TO <span>ARTSUPPLY</span></p>
+
+        <button class="hero-cta" onclick="window.location.href='signup.html'">
+          Sign up for free
+        </button>
+      </div>
+    </section>
+    <!-- The Hits row -->
+    <section class="hits-section">
+      <div class="hits-header">
+        <h2>The Hits</h2>
+
+        <div class="hits-controls">
+          <button class="hits-arrow" aria-label="Previous">&#10094;</button>
+          <button class="hits-arrow" aria-label="Next">&#10095;</button>
+          <a href="music.html" class="hits-view-all">View all</a>
+        </div>
+      </div>
+
+      <div class="hits-row">
+        <!-- Pop Hits -->
+        <article class="hits-card hits-card-pop">
+          <div class="hits-cover">
+            <div class="hits-tag-vertical">POP HITS</div>
+          </div>
+          <p class="hits-title">Pop Hits</p>
+        </article>
+
+        <!-- Rap Hits -->
+        <article class="hits-card hits-card-rap">
+          <div class="hits-cover">
+            <div class="hits-tag-vertical">RAP HITS</div>
+          </div>
+          <p class="hits-title">Rap Hits</p>
+        </article>
+
+        <!-- Top Hits -->
+        <article class="hits-card hits-card-top">
+          <div class="hits-cover">
+            <div class="hits-tag-horizontal">TOP HITS</div>
+          </div>
+          <p class="hits-title">Artsupply Top Hits</p>
+        </article>
+
+        <!-- Indie Hits -->
+        <article class="hits-card hits-card-indie">
+          <div class="hits-cover">
+            <div class="hits-tag-vertical">INDIE HITS</div>
+          </div>
+          <p class="hits-title">Indie Hits</p>
+        </article>
+
+        <!-- Rock Hits -->
+        <article class="hits-card hits-card-rock">
+          <div class="hits-cover">
+            <div class="hits-tag-vertical">ROCK HITS</div>
+          </div>
+          <p class="hits-title">Rock Hits</p>
+        </article>
+
+        <!-- R&B Hits -->
+        <article class="hits-card hits-card-rnb">
+          <div class="hits-cover">
+            <div class="hits-tag-vertical">R&amp;B HITS</div>
+          </div>
+          <p class="hits-title">R&amp;B Hits</p>
+        </article>
+
+        <!-- Latin / Éxitos -->
+        <article class="hits-card hits-card-latin">
+          <div class="hits-cover">
+            <div class="hits-tag-vertical">ÉXITOS DE HOY</div>
+          </div>
+          <p class="hits-title">Éxitos De Hoy</p>
+        </article>
+      </div>
+    </section>
+    <!-- Live shows & tickets -->
+    <section class="tickets-section">
+      <div class="tickets-header">
+        <h2>Live shows, real tickets.</h2>
+        <p>
+          From intimate club nights to arena tours, Artsupply connects your
+          playlists to real-world tickets and experiences.
+        </p>
+      </div>
+
+      <div class="tickets-grid">
+        <!-- Card 1 -->
+        <article class="ticket-card">
+          <div class="ticket-media ticket-media-mgk"></div>
+          <div class="ticket-info">
+            <span class="ticket-tag">Next level energy live in concert</span>
+            <h3>mgk</h3>
+            <p class="ticket-meta">Pop · Arena tour · Tickets from $65</p>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="ticket-card">
+          <div class="ticket-media ticket-media-hardy"></div>
+          <div class="ticket-info">
+            <span class="ticket-tag">Catch the show, VIP style</span>
+            <h3>HARDY</h3>
+            <p class="ticket-meta">Country · VIP packages available</p>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="ticket-card">
+          <div class="ticket-media ticket-media-twice"></div>
+          <div class="ticket-info">
+            <span class="ticket-tag">Pop</span>
+            <h3>TWICE</h3>
+            <p class="ticket-meta">K-Pop · World tour · Limited dates</p>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="ticket-card">
+          <div class="ticket-media ticket-media-megadeth"></div>
+          <div class="ticket-info">
+            <span class="ticket-tag">Metal</span>
+            <h3>Megadeth</h3>
+            <p class="ticket-meta">Metal · Festival & headline shows</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="tickets-cta-row">
+        <button
+          class="hero-cta hero-cta-outline"
+          onclick="window.location.href='tickets.html'"
+        >
+          Browse tickets
+        </button>
+      </div>
+    </section>
+
+    <!-- Scripts at the end of body  -->
+
+    <!-- Firebase + auth + login logic (from your original) -->
+    <script type="module" src="assets/js/firebase-config.js"></script>
+    <script type="module" src="assets/js/auth.js"></script>
+    <script type="module" src="assets/js/login.js"></script>
+    <script type="module">
+      import { initAuthHeader } from "./assets/js/auth.js";
+      initAuthHeader();
+    </script>
+
+    <!-- Three.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.155/build/three.min.js"></script>
+
+    <!-- Your Three.js background effect (Option 3 waves) -->
+    <script src="assets/js/three-bg.js"></script>
+
+    <!-- Parallax (only if you're using it elsewhere) -->
+    <script src="assets/js/parallax.js"></script>
+
+    <!-- Force background video autoplay -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const bgVideo = document.querySelector(".bg-video");
+        if (!bgVideo) return;
+
+        bgVideo.muted = true;
+        bgVideo.playsInline = true;
+
+        const playPromise = bgVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // If browser blocks autoplay, start video on first click
+            const startOnClick = () => {
+              bgVideo.play().catch(() => {});
+              document.removeEventListener("click", startOnClick);
+            };
+            document.addEventListener("click", startOnClick, { once: true });
+          });
+        }
+      });
+    </script>
+    <!-- Artist cards + left nav interactions (add-on) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Left hamburger menu toggle
+        const sideMenu = document.querySelector(".side-menu");
+        const hamburger = document.querySelector(".hamburger");
+
+        if (sideMenu && hamburger) {
+          hamburger.addEventListener("click", () => {
+            sideMenu.classList.toggle("open");
+          });
+        }
+
+        // Artist card dropdowns
+        const cardToggles = document.querySelectorAll(".artist-card-toggle");
+
+        cardToggles.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const card = btn.closest(".artist-card");
+            const alreadyOpen = card.classList.contains("open");
+
+            // Close any other open cards (accordion style)
+            document
+              .querySelectorAll(".artist-card.open")
+              .forEach((openCard) => {
+                openCard.classList.remove("open");
+              });
+
+            if (!alreadyOpen) {
+              card.classList.add("open");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
