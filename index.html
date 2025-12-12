@@ -89,76 +89,138 @@
         </button>
       </div>
     </section>
-    <!-- The Hits row -->
-    <section class="hits-section">
-      <div class="hits-header">
-        <h2>The Hits</h2>
-
-        <div class="hits-controls">
-          <button class="hits-arrow" aria-label="Previous">&#10094;</button>
-          <button class="hits-arrow" aria-label="Next">&#10095;</button>
-          <a href="music.html" class="hits-view-all">View all</a>
-        </div>
+    <!-- =========================
+     WHAT ARTSUPPLY DOES
+     ========================= -->
+    <section class="info-section">
+      <div class="info-header">
+        <h2>One place for music, concerts, and merch.</h2>
+        <p class="muted">
+          Discover artists, listen to their latest drops, grab official merch,
+          and secure tickets for upcoming shows — all in one flow.
+        </p>
       </div>
 
-      <div class="hits-row">
-        <!-- Pop Hits -->
-        <article class="hits-card hits-card-pop">
-          <div class="hits-cover">
-            <div class="hits-tag-vertical">POP HITS</div>
-          </div>
-          <p class="hits-title">Pop Hits</p>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <img
+            src="images/music-card.png"
+            alt="Music discovery"
+            class="feature-image"
+          />
+          <div class="feature-icon">🎧</div>
+          <h3>Music Discovery</h3>
+          <p class="muted">
+            Browse artists, explore top tracks, and find new favorites fast.
+          </p>
+          <a class="mini-link" href="music.html">Explore Music →</a>
         </article>
 
-        <!-- Rap Hits -->
-        <article class="hits-card hits-card-rap">
-          <div class="hits-cover">
-            <div class="hits-tag-vertical">RAP HITS</div>
-          </div>
-          <p class="hits-title">Rap Hits</p>
+        <article class="feature-card">
+          <div class="feature-icon">🎟️</div>
+          <h3>Concert Tickets</h3>
+          <p class="muted">
+            Verified tickets, real-time availability, and quick checkout.
+          </p>
+          <a class="mini-link" href="tickets.html">Browse Tickets →</a>
         </article>
 
-        <!-- Top Hits -->
-        <article class="hits-card hits-card-top">
-          <div class="hits-cover">
-            <div class="hits-tag-horizontal">TOP HITS</div>
-          </div>
-          <p class="hits-title">Artsupply Top Hits</p>
-        </article>
-
-        <!-- Indie Hits -->
-        <article class="hits-card hits-card-indie">
-          <div class="hits-cover">
-            <div class="hits-tag-vertical">INDIE HITS</div>
-          </div>
-          <p class="hits-title">Indie Hits</p>
-        </article>
-
-        <!-- Rock Hits -->
-        <article class="hits-card hits-card-rock">
-          <div class="hits-cover">
-            <div class="hits-tag-vertical">ROCK HITS</div>
-          </div>
-          <p class="hits-title">Rock Hits</p>
-        </article>
-
-        <!-- R&B Hits -->
-        <article class="hits-card hits-card-rnb">
-          <div class="hits-cover">
-            <div class="hits-tag-vertical">R&amp;B HITS</div>
-          </div>
-          <p class="hits-title">R&amp;B Hits</p>
-        </article>
-
-        <!-- Latin / Éxitos -->
-        <article class="hits-card hits-card-latin">
-          <div class="hits-cover">
-            <div class="hits-tag-vertical">ÉXITOS DE HOY</div>
-          </div>
-          <p class="hits-title">Éxitos De Hoy</p>
+        <article class="feature-card">
+          <div class="feature-icon">🛍️</div>
+          <h3>Official Merch</h3>
+          <p class="muted">
+            Hoodies, tees, vinyl, and exclusive drops from your artists.
+          </p>
+          <a class="mini-link" href="merch.html">Shop Merch →</a>
         </article>
       </div>
     </section>
+
+    <!-- =========================
+     HOW IT WORKS (SUPER CLEAR)
+     ========================= -->
+    <section class="how-section">
+      <h1>HOW IT WORKS?</h1>
+      <div class="how-inner card">
+        <ol class="how-steps">
+          <li>
+            <strong>Pick an artist</strong>
+            <span class="muted"
+              >Browse the directory and open an artist profile.</span
+            >
+          </li>
+          <li>
+            <strong>Listen & explore</strong>
+            <span class="muted">See releases, mixes, and featured tracks.</span>
+          </li>
+          <li>
+            <strong>Shop & book</strong>
+            <span class="muted"
+              >Buy merch and tickets without leaving the site.</span
+            >
+          </li>
+        </ol>
+
+        <div class="how-ctas">
+          <button
+            class="pill-btn"
+            onclick="window.location.href='artist-directory.html'"
+          >
+            Browse Artists
+          </button>
+          <button
+            class="pill-btn pill-outline"
+            onclick="window.location.href='signup.html'"
+          >
+            Create Account
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+     TICKETS CALLOUT (BIG + OBVIOUS)
+     ========================= -->
+    <section class="tickets-callout">
+      <div class="tickets-copy">
+        <h2>Live shows, real tickets.</h2>
+        <p class="muted">
+          From intimate club nights to arena tours — Artsupply connects you to
+          official ticket options and curated events.
+        </p>
+        <button class="pill-btn" onclick="window.location.href='tickets.html'">
+          Browse Tickets
+        </button>
+      </div>
+
+      <div class="tickets-panels">
+        <div class="ticket-mini">
+          <span class="tag">This Week</span>
+          <h3>Trending Shows</h3>
+          <p class="muted">See what’s selling fast in your city.</p>
+        </div>
+        <div class="ticket-mini">
+          <span class="tag">VIP</span>
+          <h3>Upgrade Moments</h3>
+          <p class="muted">VIP packages & limited bundles.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+     FINAL CTA FOOTER STRIP
+     ========================= -->
+    <section class="final-cta">
+      <h2>Ready to build your lineup?</h2>
+      <p class="muted">Follow artists, save events, and catch merch drops.</p>
+      <button
+        class="hero-cta"
+        onclick="window.location.href='artist-directory.html'"
+      >
+        Find your fave artists
+      </button>
+    </section>
+
     <!-- Live shows & tickets -->
     <section class="tickets-section">
       <div class="tickets-header">
